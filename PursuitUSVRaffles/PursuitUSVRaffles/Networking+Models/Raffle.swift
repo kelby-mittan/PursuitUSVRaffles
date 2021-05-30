@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Raffle: Decodable {
+struct Raffle: Decodable, Hashable {
     let id: Int?
     let name: String?
     let createdAt: String?

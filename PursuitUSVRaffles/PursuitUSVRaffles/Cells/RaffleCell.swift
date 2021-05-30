@@ -9,6 +9,8 @@ import UIKit
 
 class RaffleCell: UICollectionViewCell {
     
+    static let reuseIdentifier = "raffleCell"
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = ""
@@ -51,8 +53,13 @@ class RaffleCell: UICollectionViewCell {
         return label
     }()
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
+        setupViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
         setupViews()
     }
     
@@ -64,7 +71,11 @@ class RaffleCell: UICollectionViewCell {
         
         let createdAtStr = NSMutableAttributedString(string: "")
         createdAtStr.append(NSAttributedString(attachment: calendarAttatchment))
-        createdAtStr.append(NSAttributedString(string: " \(raffle.createdAt?.date().toString() ?? "") at \(raffle.createdAt?.date().toString(format: "h:mm a") ?? "")"))
+        
+        createdAtStr.append(NSAttributedString(string: "  Created on \(raffle.createdAt?.dateToString().date ?? "") at \(raffle.createdAt?.dateToString().time ?? "")"))
+        
+//        createdAtStr.append(NSAttributedString(string: "  Created on \(raffle.createdAt?.toDate() ?? "")"))
+
         createdAtLabel.attributedText = createdAtStr
         
         let trophyAttatchment = NSTextAttachment()
@@ -82,7 +93,7 @@ class RaffleCell: UICollectionViewCell {
         raffledAtStr.append(NSAttributedString(attachment: checkAttatchment))
         
         raffle.raffledAt != nil
-            ?  raffledAtStr.append(NSAttributedString(string: " \(raffle.raffledAt?.date().toString() ?? "") at \(raffle.raffledAt?.date().toString(format: "h:mm a") ?? "")"))
+            ?  raffledAtStr.append(NSAttributedString(string: " Raffle won on \(raffle.raffledAt?.dateToString().date ?? "") at \(raffle.raffledAt?.dateToString().time ?? "")"))
             :  raffledAtStr.append(NSAttributedString(string: " Not Raffled Yet"))
         raffledAtLabel.attributedText = raffledAtStr
     }
@@ -92,6 +103,8 @@ class RaffleCell: UICollectionViewCell {
         setupCreatedAtLabel()
         setupWinnerLabel()
         setupRaffledAtLabel()
+        self.backgroundColor = .cyan
+        self.layer.cornerRadius = 12
     }
     
     private func setupTitleLabel() {
@@ -100,8 +113,8 @@ class RaffleCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12)
         ])
     }
     

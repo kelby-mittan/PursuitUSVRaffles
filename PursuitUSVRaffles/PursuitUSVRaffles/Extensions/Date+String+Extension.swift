@@ -8,22 +8,44 @@
 import Foundation
 
 extension String {
-    public func date() -> Date {
-        var date = Date()
-        let isoDateFormatter = ISO8601DateFormatter()
-        if let isoDate = isoDateFormatter.date(from: self) {
-            date = isoDate
+    public func dateToString() -> (date: String, time: String) {
+        var dayAndDate = "No Date"
+        var time = "No Time"
+        
+        var str = self
+        str = str.replacingOccurrences(of: "T", with: " ")
+        str = str.replacingOccurrences(of: "Z", with: "")
+        print(str)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss.S"
+        let dateFromString = dateFormatter.date(from: str)
+
+        let dayAndDateFormatter = DateFormatter()
+        dayAndDateFormatter.dateFormat = "EEEE, MMM d"
+
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "h:mm a"
+        
+        if let validDate = dateFromString {
+            dayAndDate = dayAndDateFormatter.string(from: validDate)
+            time = timeFormatter.string(from: validDate)
         }
-        return date
+        
+        return (dayAndDate, time)
     }
 
 }
 
-extension Date {
-    func toString(format: String = "EEEE, MMM d, yyyy") -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.dateFormat = format
-        return formatter.string(from: self)
+extension String {
+    func toDate() -> String {
+        let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions = [.withFullDate,
+                                       .withTime,
+                                       .withDashSeparatorInDate,
+                                       .withColonSeparatorInTime
+        ]
+        let date = dateFormatter.date(from: self)
+        return date!.description(with: .current)
     }
 }

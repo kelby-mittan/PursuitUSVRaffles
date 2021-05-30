@@ -9,13 +9,22 @@ import UIKit
 
 class HomeView: UIView {
     
-    public lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        let collection = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        collection.backgroundColor = .orange
-        collection.register(RaffleCell.self, forCellWithReuseIdentifier: "raffleCell")
-        return collection
+//    public lazy var collectionView: UICollectionView = {
+//        let layout = UICollectionViewFlowLayout()
+//        layout.scrollDirection = .vertical
+//        let collection = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+//        collection.backgroundColor = .orange
+//        collection.register(RaffleCell.self, forCellWithReuseIdentifier: "raffleCell")
+//        return collection
+//    }()
+    
+    public lazy var cvContainerView: UIView = {
+        let view = UIView()
+//        layout.scrollDirection = .vertical
+//        let collection = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+//        collection.backgroundColor = .orange
+//        collection.register(RaffleCell.self, forCellWithReuseIdentifier: "raffleCell")
+        return view
     }()
     
 //    private lazy var createRaffleButton: UIButton = {
@@ -44,13 +53,13 @@ class HomeView: UIView {
     }
     
     private func setupCollectionView() {
-        addSubview(collectionView)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(cvContainerView)
+        cvContainerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height*1/8),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor)
+            cvContainerView.topAnchor.constraint(equalTo: topAnchor, constant: UIScreen.main.bounds.height*1/8),
+            cvContainerView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            cvContainerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            cvContainerView.leadingAnchor.constraint(equalTo: leadingAnchor)
         ])
     }
     
