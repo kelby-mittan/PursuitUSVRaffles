@@ -19,6 +19,10 @@
 		02A966952662C5BE003899E0 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966942662C5BE003899E0 /* AppError.swift */; };
 		02A966972662D3B5003899E0 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966962662D3B5003899E0 /* NetworkHelper.swift */; };
 		02A966992662D440003899E0 /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966982662D440003899E0 /* Participant.swift */; };
+		02A9669B26630FAE003899E0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A9669A26630FAE003899E0 /* HomeView.swift */; };
+		02A9669E266310AA003899E0 /* ColorPallete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A9669D266310AA003899E0 /* ColorPallete.swift */; };
+		02A966A026631117003899E0 /* RaffleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A9669F26631117003899E0 /* RaffleCell.swift */; };
+		02A966A226631DFD003899E0 /* Date+String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966A126631DFD003899E0 /* Date+String+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +61,10 @@
 		02A966942662C5BE003899E0 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		02A966962662D3B5003899E0 /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		02A966982662D440003899E0 /* Participant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
+		02A9669A26630FAE003899E0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		02A9669D266310AA003899E0 /* ColorPallete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPallete.swift; sourceTree = "<group>"; };
+		02A9669F26631117003899E0 /* RaffleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaffleCell.swift; sourceTree = "<group>"; };
+		02A966A126631DFD003899E0 /* Date+String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+String+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +115,7 @@
 		02A966562662B14D003899E0 /* PursuitUSVRaffles */ = {
 			isa = PBXGroup;
 			children = (
+				02A9669C26631080003899E0 /* Extensions */,
 				02A9668F2662B27A003899E0 /* ViewControllers */,
 				02A9668E2662B273003899E0 /* Views */,
 				02A9668D2662B262003899E0 /* Cells */,
@@ -161,6 +170,7 @@
 		02A9668D2662B262003899E0 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				02A9669F26631117003899E0 /* RaffleCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -168,6 +178,7 @@
 		02A9668E2662B273003899E0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				02A9669A26630FAE003899E0 /* HomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -178,6 +189,15 @@
 				02A966902662B29E003899E0 /* HomeController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		02A9669C26631080003899E0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				02A9669D266310AA003899E0 /* ColorPallete.swift */,
+				02A966A126631DFD003899E0 /* Date+String+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -309,13 +329,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02A9669B26630FAE003899E0 /* HomeView.swift in Sources */,
+				02A966A026631117003899E0 /* RaffleCell.swift in Sources */,
 				02A966972662D3B5003899E0 /* NetworkHelper.swift in Sources */,
 				02A966582662B14D003899E0 /* AppDelegate.swift in Sources */,
+				02A9669E266310AA003899E0 /* ColorPallete.swift in Sources */,
 				02A966912662B29E003899E0 /* HomeController.swift in Sources */,
 				02A966992662D440003899E0 /* Participant.swift in Sources */,
 				02A966952662C5BE003899E0 /* AppError.swift in Sources */,
 				02A9665A2662B14D003899E0 /* SceneDelegate.swift in Sources */,
 				02A9668C2662B22F003899E0 /* APIClient.swift in Sources */,
+				02A966A226631DFD003899E0 /* Date+String+Extension.swift in Sources */,
 				02A9668A2662B1C3003899E0 /* Raffle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
