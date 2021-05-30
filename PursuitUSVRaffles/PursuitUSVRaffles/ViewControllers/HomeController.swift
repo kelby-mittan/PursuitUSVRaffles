@@ -19,13 +19,19 @@ class HomeController: UIViewController {
     private var dataSource: DataSource!
     private var snapshot = DataSourceSnapshot()
     
-//    var raffles = [Raffle]() {
-//        didSet {
-//            DispatchQueue.main.async {
-//                self.homeView.collectionView.reloadData()
-//            }
-//        }
-//    }
+    private lazy var popUpView: RafflePopUpView = {
+        let view = RafflePopUpView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.delegate = self
+        return view
+    }()
+    
+    let visualEffectView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .light)
+        let view = UIVisualEffectView(effect: blurEffect)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     override func loadView() {
         view = homeView
@@ -35,31 +41,52 @@ class HomeController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .green
-//        homeView.collectionView.delegate = self
-//        homeView.collectionView.dataSource = self
+        homeView.createRaffleButton.addTarget(self, action: #selector(raffleButtonPressed), for: .touchUpInside)
         configureCollectionViewLayout()
         configureCollectionViewDataSource()
         loadRaffles()
+        setupVisualEffect()
+        
     }
     
     private func loadRaffles() {
         APIClient.fetchRaffles { (result) in
             switch result {
             case .failure(let error):
-                // TODO: Error loading raffles alert
                 print(error.localizedDescription)
             case .success(let raffles):
                 dump(raffles)
                 self.applySnapshot(raffles: raffles)
-//                self.raffles = raffles
-//                let d = raffles.first!.createdAt!
-//                print(d.date().toString())
-//                print(d.date().toString(format: "h:mm a"))
             }
         }
     }
     
+    private func setupVisualEffect() {
+        homeView.addSubview(visualEffectView)
+        visualEffectView.leadingAnchor.constraint(equalTo: homeView.leadingAnchor).isActive = true
+        visualEffectView.trailingAnchor.constraint(equalTo: homeView.trailingAnchor).isActive = true
+        visualEffectView.topAnchor.constraint(equalTo: homeView.topAnchor).isActive = true
+        visualEffectView.bottomAnchor.constraint(equalTo: homeView.bottomAnchor).isActive = true
+        visualEffectView.alpha = 0
+    }
     
+    @objc func raffleButtonPressed() {
+        homeView.addSubview(popUpView)
+        popUpView.centerYAnchor.constraint(equalTo: homeView.centerYAnchor, constant: -40).isActive = true
+        popUpView.centerXAnchor.constraint(equalTo: homeView.centerXAnchor).isActive = true
+        popUpView.widthAnchor.constraint(equalToConstant: homeView.frame.width-64).isActive = true
+        popUpView.heightAnchor.constraint(equalToConstant: homeView.frame.width-64).isActive = true
+        popUpView.backgroundColor = .white
+        
+        popUpView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        popUpView.alpha = 0
+        
+        UIView.animate(withDuration: 0.5) {
+            self.visualEffectView.alpha = 1
+            self.popUpView.alpha = 1
+            self.popUpView.transform = CGAffineTransform.identity
+        }
+    }
     
 }
 
@@ -121,39 +148,16 @@ extension HomeController: UICollectionViewDelegate {
     }
 }
 
-//extension HomeController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//        return CGSize(width: UIScreen.main.bounds.size.width*5/6, height: homeView.collectionView.frame.height*1/3)
-//    }
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return raffles.count
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "raffleCell", for: indexPath) as! RaffleCell
-//        cell.backgroundColor = .green
-//        let raffle = raffles[indexPath.row]
-//        cell.configureCell(raffle)
-//        return cell
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-////        let raffle = raffles[indexPath.row]
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-////        let verticalSpace = view.frame.height / 5
-//        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        return 0
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return 0
-//    }
-//
-//}
+extension HomeController: PopUpDelegate {
+    func handleDismiss() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.visualEffectView.alpha = 0
+            self.popUpView.alpha = 0
+            self.popUpView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        }) { (_) in
+            self.popUpView.removeFromSuperview()
+        }
+    }
+    
+    
+}
