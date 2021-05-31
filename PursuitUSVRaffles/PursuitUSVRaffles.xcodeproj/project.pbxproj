@@ -26,6 +26,11 @@
 		02A966A426644FC6003899E0 /* RafflePopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966A326644FC5003899E0 /* RafflePopUpView.swift */; };
 		02A966A62664512A003899E0 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966A52664512A003899E0 /* CustomTextField.swift */; };
 		02A966A826646AD9003899E0 /* ParticipantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966A726646AD9003899E0 /* ParticipantCell.swift */; };
+		02A966AA26646E82003899E0 /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966A926646E82003899E0 /* SuccessView.swift */; };
+		02A966AC26652171003899E0 /* RaffleDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966AB26652171003899E0 /* RaffleDetailController.swift */; };
+		02A966AE266521AD003899E0 /* RaffleDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966AD266521AD003899E0 /* RaffleDetailView.swift */; };
+		02A966B0266552C3003899E0 /* SegmentedControl+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966AF266552C3003899E0 /* SegmentedControl+Extension.swift */; };
+		02A966B226655E99003899E0 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966B126655E98003899E0 /* RegisterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +76,11 @@
 		02A966A326644FC5003899E0 /* RafflePopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RafflePopUpView.swift; sourceTree = "<group>"; };
 		02A966A52664512A003899E0 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		02A966A726646AD9003899E0 /* ParticipantCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantCell.swift; sourceTree = "<group>"; };
+		02A966A926646E82003899E0 /* SuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessView.swift; sourceTree = "<group>"; };
+		02A966AB26652171003899E0 /* RaffleDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaffleDetailController.swift; sourceTree = "<group>"; };
+		02A966AD266521AD003899E0 /* RaffleDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaffleDetailView.swift; sourceTree = "<group>"; };
+		02A966AF266552C3003899E0 /* SegmentedControl+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SegmentedControl+Extension.swift"; sourceTree = "<group>"; };
+		02A966B126655E98003899E0 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,7 +196,10 @@
 			isa = PBXGroup;
 			children = (
 				02A9669A26630FAE003899E0 /* HomeView.swift */,
+				02A966AD266521AD003899E0 /* RaffleDetailView.swift */,
 				02A966A326644FC5003899E0 /* RafflePopUpView.swift */,
+				02A966A926646E82003899E0 /* SuccessView.swift */,
+				02A966B126655E98003899E0 /* RegisterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -195,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				02A966902662B29E003899E0 /* HomeController.swift */,
+				02A966AB26652171003899E0 /* RaffleDetailController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -205,6 +219,7 @@
 				02A9669D266310AA003899E0 /* ColorPallete.swift */,
 				02A966A126631DFD003899E0 /* Date+String+Extension.swift */,
 				02A966A52664512A003899E0 /* CustomTextField.swift */,
+				02A966AF266552C3003899E0 /* SegmentedControl+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -338,11 +353,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02A966AA26646E82003899E0 /* SuccessView.swift in Sources */,
+				02A966B226655E99003899E0 /* RegisterView.swift in Sources */,
 				02A966A826646AD9003899E0 /* ParticipantCell.swift in Sources */,
 				02A966A62664512A003899E0 /* CustomTextField.swift in Sources */,
 				02A9669B26630FAE003899E0 /* HomeView.swift in Sources */,
+				02A966AC26652171003899E0 /* RaffleDetailController.swift in Sources */,
 				02A966A026631117003899E0 /* RaffleCell.swift in Sources */,
 				02A966972662D3B5003899E0 /* NetworkHelper.swift in Sources */,
+				02A966AE266521AD003899E0 /* RaffleDetailView.swift in Sources */,
 				02A966582662B14D003899E0 /* AppDelegate.swift in Sources */,
 				02A9669E266310AA003899E0 /* ColorPallete.swift in Sources */,
 				02A966912662B29E003899E0 /* HomeController.swift in Sources */,
@@ -353,6 +372,7 @@
 				02A966A426644FC6003899E0 /* RafflePopUpView.swift in Sources */,
 				02A966A226631DFD003899E0 /* Date+String+Extension.swift in Sources */,
 				02A9668A2662B1C3003899E0 /* Raffle.swift in Sources */,
+				02A966B0266552C3003899E0 /* SegmentedControl+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

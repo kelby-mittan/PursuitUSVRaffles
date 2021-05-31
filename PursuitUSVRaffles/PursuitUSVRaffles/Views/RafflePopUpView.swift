@@ -53,6 +53,14 @@ class RafflePopUpView: UIView {
         return button
     }()
     
+    public lazy var successView: SuccessView = {
+        let view = SuccessView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 12
+        view.alpha = 0
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
@@ -71,6 +79,7 @@ class RafflePopUpView: UIView {
         setupNameTextField()
         setupTokenTextField()
         setupCreateButton()
+        setupSuccessView()
     }
     
     private func setupDismissalButton() {
@@ -124,6 +133,18 @@ class RafflePopUpView: UIView {
             createButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             createButton.widthAnchor.constraint(equalToConstant: frame.width/2),
             createButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
+    }
+    
+    private func setupSuccessView() {
+        addSubview(successView)
+        successView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            successView.topAnchor.constraint(equalTo: topAnchor),
+            successView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            successView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            successView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
     

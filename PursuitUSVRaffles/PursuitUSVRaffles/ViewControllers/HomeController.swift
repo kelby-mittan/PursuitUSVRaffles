@@ -76,6 +76,7 @@ class HomeController: UIViewController {
     }
     
     @objc func raffleButtonPressed() {
+        popUpView.successView.alpha = 0
         homeView.addSubview(popUpView)
         popUpView.centerYAnchor.constraint(equalTo: homeView.centerYAnchor, constant: -UIScreen.main.bounds.height/6).isActive = true
         popUpView.centerXAnchor.constraint(equalTo: homeView.centerXAnchor).isActive = true
@@ -101,25 +102,8 @@ extension HomeController {
         case main
     }
     
-    private func createLayout() -> UICollectionViewLayout {
-        
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 18, bottom: 8, trailing: 18)
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(220))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
-        let section = NSCollectionLayoutSection(group: group)
-        
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        
-        return layout
-        
-    }
-    
     private func configureCollectionViewLayout() {
-        collectionView = UICollectionView(frame: homeView.cvContainerView.bounds, collectionViewLayout: createLayout())
+        collectionView = UICollectionView(frame: homeView.cvContainerView.bounds, collectionViewLayout: CVLayout.createCVLayout(insetVert: 8, insetHor: 18, height: 220))
         collectionView.delegate = self
         collectionView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         collectionView.backgroundColor = .systemTeal
@@ -150,6 +134,9 @@ extension HomeController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let raffle = dataSource.itemIdentifier(for: indexPath) else { return }
         print(raffle.name ?? "")
+        let vc = RaffleDetailController()
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
     }
 }
 
@@ -160,21 +147,35 @@ extension HomeController: PopUpDelegate {
     }
     
     func handleCreate() {
-        print("create pressed \(raffleCreatedName) + \(raffleToken)")
         
         if !raffleCreatedName.isEmpty && !raffleToken.isEmpty {
             let newRaffle = RafflePost(name: raffleCreatedName, secretToken: raffleToken)
-            APIClient.postRaffle(for: newRaffle) { result in
-                switch result {
-                case .failure(let error):
-                    print("Error Posting Raffle \(error.localizedDescription)")
-                case .success(let passed):
-                    print(passed)
-                    DispatchQueue.main.async {
-                        self.dismissPopUp()
-                    }
+//            APIClient.postRaffle(for: newRaffle) { result in
+//                switch result {
+//                case .failure(let error):
+//                    print("Error Posting Raffle \(error.localizedDescription)")
+//                case .success(let passed):
+//                    print(passed)
+//                    DispatchQueue.main.async {
+//                        UIView.animate(withDuration: 1.0) {
+//                            self.popUpView.successView.alpha = 1
+//                        } completion: { _ in
+//                            self.dismissPopUp()
+//                        }
+//                    }
+//                }
+//            }
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 1.0) {
+                    self.popUpView.successView.alpha = 1
+                } completion: { _ in
+                    self.dismissPopUp()
                 }
             }
+        } else {
+            let alert = UIAlertController(title: "Please fill out both fields", message: "", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default))
+            self.present(alert, animated: true, completion: nil)
         }
         
     }

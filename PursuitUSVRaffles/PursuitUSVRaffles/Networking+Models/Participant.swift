@@ -17,7 +17,7 @@ import Foundation
          "registered_at": "2021-05-28T19:35:16.901Z"
  */
 
-struct Participant: Decodable {
+struct Participant: Decodable, Hashable {
     let id: Int?
     let raffleID: Int?
     let firstname: String?
