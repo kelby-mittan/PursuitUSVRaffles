@@ -74,8 +74,6 @@ class RaffleCell: UICollectionViewCell {
         
         createdAtStr.append(NSAttributedString(string: "  Created on \(raffle.createdAt?.dateToString().date ?? "") at \(raffle.createdAt?.dateToString().time ?? "")"))
         
-//        createdAtStr.append(NSAttributedString(string: "  Created on \(raffle.createdAt?.toDate() ?? "")"))
-
         createdAtLabel.attributedText = createdAtStr
         
         let trophyAttatchment = NSTextAttachment()

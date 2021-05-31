@@ -8,7 +8,27 @@
 import Foundation
 
 extension String {
+    
     public func dateToString() -> (date: String, time: String) {
+        
+        var dayAndDate = "No Date"
+        var time = "No Time"
+        
+        let isoFormatter = ISO8601DateFormatter()
+        isoFormatter.formatOptions = [.withInternetDateTime,
+                                       .withFractionalSeconds
+        ]
+        let date = isoFormatter.date(from: self)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, MMM d"
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = " h:mm a"
+        dayAndDate = dateFormatter.string(from: date ?? Date())
+        time = timeFormatter.string(from: date ?? Date())
+        return (dayAndDate, time)
+    }
+    
+    public func dateToString2() -> (date: String, time: String) {
         var dayAndDate = "No Date"
         var time = "No Time"
         
@@ -37,15 +57,3 @@ extension String {
 
 }
 
-extension String {
-    func toDate() -> String {
-        let dateFormatter = ISO8601DateFormatter()
-        dateFormatter.formatOptions = [.withFullDate,
-                                       .withTime,
-                                       .withDashSeparatorInDate,
-                                       .withColonSeparatorInTime
-        ]
-        let date = dateFormatter.date(from: self)
-        return date!.description(with: .current)
-    }
-}

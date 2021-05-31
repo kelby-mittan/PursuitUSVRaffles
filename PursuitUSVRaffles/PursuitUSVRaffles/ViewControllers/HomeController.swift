@@ -19,6 +19,9 @@ class HomeController: UIViewController {
     private var dataSource: DataSource!
     private var snapshot = DataSourceSnapshot()
     
+    private var raffleCreatedName = ""
+    private var raffleToken = ""
+    
     private lazy var popUpView: RafflePopUpView = {
         let view = RafflePopUpView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -42,6 +45,8 @@ class HomeController: UIViewController {
         
         view.backgroundColor = .green
         homeView.createRaffleButton.addTarget(self, action: #selector(raffleButtonPressed), for: .touchUpInside)
+        popUpView.nameTextField.delegate = self
+        popUpView.tokenTextField.delegate = self
         configureCollectionViewLayout()
         configureCollectionViewDataSource()
         loadRaffles()
@@ -72,7 +77,7 @@ class HomeController: UIViewController {
     
     @objc func raffleButtonPressed() {
         homeView.addSubview(popUpView)
-        popUpView.centerYAnchor.constraint(equalTo: homeView.centerYAnchor, constant: -40).isActive = true
+        popUpView.centerYAnchor.constraint(equalTo: homeView.centerYAnchor, constant: -UIScreen.main.bounds.height/6).isActive = true
         popUpView.centerXAnchor.constraint(equalTo: homeView.centerXAnchor).isActive = true
         popUpView.widthAnchor.constraint(equalToConstant: homeView.frame.width-64).isActive = true
         popUpView.heightAnchor.constraint(equalToConstant: homeView.frame.width-64).isActive = true
@@ -149,7 +154,32 @@ extension HomeController: UICollectionViewDelegate {
 }
 
 extension HomeController: PopUpDelegate {
+    
     func handleDismiss() {
+        dismissPopUp()
+    }
+    
+    func handleCreate() {
+        print("create pressed \(raffleCreatedName) + \(raffleToken)")
+        
+        if !raffleCreatedName.isEmpty && !raffleToken.isEmpty {
+            let newRaffle = RafflePost(name: raffleCreatedName, secretToken: raffleToken)
+            APIClient.postRaffle(for: newRaffle) { result in
+                switch result {
+                case .failure(let error):
+                    print("Error Posting Raffle \(error.localizedDescription)")
+                case .success(let passed):
+                    print(passed)
+                    DispatchQueue.main.async {
+                        self.dismissPopUp()
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    func dismissPopUp() {
         UIView.animate(withDuration: 0.5, animations: {
             self.visualEffectView.alpha = 0
             self.popUpView.alpha = 0
@@ -159,5 +189,51 @@ extension HomeController: PopUpDelegate {
         }
     }
     
+}
+
+extension HomeController: UITextFieldDelegate {
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        print("should return called")
+        
+//        if textField == popUpView.nameTextField {
+//            raffleCreatedName = textField.text ?? ""
+//        }
+//        if textField == popUpView.tokenTextField {
+//            raffleToken = textField.text ?? ""
+//        }
+        setNameAndToken(textField: textField)
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+//        if textField == popUpView.nameTextField {
+//            raffleCreatedName = textField.text ?? ""
+//        }
+//        if textField == popUpView.tokenTextField {
+//            raffleToken = textField.text ?? ""
+//        }
+        setNameAndToken(textField: textField)
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+//        if textField == popUpView.nameTextField {
+//            raffleCreatedName = textField.text ?? ""
+//        }
+//        if textField == popUpView.tokenTextField {
+//            raffleToken = textField.text ?? ""
+//        }
+        setNameAndToken(textField: textField)
+    }
+    
+    func setNameAndToken(textField: UITextField) {
+        if textField == popUpView.nameTextField {
+            raffleCreatedName = textField.text ?? ""
+        }
+        if textField == popUpView.tokenTextField {
+            raffleToken = textField.text ?? ""
+        }
+    }
 }

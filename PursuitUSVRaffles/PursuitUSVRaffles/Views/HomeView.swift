@@ -14,12 +14,10 @@ class HomeView: UIView {
         button.frame = CGRect(x: 100, y: 100, width: 64, height: 64)
         button.layer.cornerRadius = 8
         button.clipsToBounds = true
-        button.setBackgroundImage(UIImage(systemName: "crown.fill"), for: .normal)
-        button.backgroundColor = .white
+        button.setBackgroundImage(UIImage(systemName: "note.text.badge.plus"), for: .normal)
+        button.backgroundColor = .clear
         button.contentMode = .center
         button.tintColor = .orange
-        //        button.addTarget(self, action: #selector(raffleButtonPressed), for: .touchUpInside)
-        //        button.layer.masksToBounds = false
         return button
     }()
     
@@ -83,86 +81,6 @@ class HomeView: UIView {
             cvContainerView.trailingAnchor.constraint(equalTo: trailingAnchor),
             cvContainerView.leadingAnchor.constraint(equalTo: leadingAnchor)
         ])
-    }
-    
-}
-
-protocol PopUpDelegate {
-    func handleDismiss()
-}
-
-class RafflePopUpView: UIView {
-    
-    var delegate: PopUpDelegate?
-    
-    private lazy var dismissButton: UIButton = {
-        let button = UIButton()
-        button.setBackgroundImage(UIImage(systemName: "xmark.rectangle.fill"), for: .normal)
-        button.tintColor = .green
-//        button.backgroundColor = ColorPallete.lightGreen.colour
-        button.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
-        return button
-    }()
-    
-    public lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Create a Raffle"
-//        label.font = .preferredFont(forTextStyle: .title1)
-        label.font = UIFont.boldSystemFont(ofSize: 24)
-        return label
-    }()
-    
-    private lazy var createButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Get Involved", for: .normal)
-        button.layer.cornerRadius = 18
-        button.backgroundColor = ColorPallete.lightGreen.colour
-        button.addTarget(self, action: #selector(handleSubmit), for: .touchUpInside)
-        return button
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: UIScreen.main.bounds)
-        commonInit()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        commonInit()
-    }
-    
-    private func commonInit() {
-        self.layer.cornerRadius = 12
-        setupDismissalButton()
-        setupLabel()
-    }
-    
-    private func setupDismissalButton() {
-        addSubview(dismissButton)
-        dismissButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            dismissButton.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            dismissButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            dismissButton.widthAnchor.constraint(equalToConstant: 40),
-            dismissButton.heightAnchor.constraint(equalToConstant: 40)
-        ])
-    }
-    
-    private func setupLabel() {
-        addSubview(titleLabel)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: dismissButton.bottomAnchor, constant: 10),
-            titleLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor)
-        ])
-    }
-    
-    @objc func handleDismiss() {
-        delegate?.handleDismiss()
-    }
-    
-    @objc func handleSubmit() {
-        
     }
     
 }
