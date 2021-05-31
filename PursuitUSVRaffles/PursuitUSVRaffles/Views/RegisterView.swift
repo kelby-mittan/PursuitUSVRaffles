@@ -88,6 +88,15 @@ class RegisterView: UIView {
         return button
     }()
     
+    public lazy var successView: SuccessView = {
+        let view = SuccessView()
+        view.alpha = 0
+        view.backgroundColor = .white
+        view.successIV.image = UIImage(systemName: "checkmark")
+        view.titleLabel.text = "You're registered for the raffle"
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
@@ -101,6 +110,7 @@ class RegisterView: UIView {
     private func commonInit() {
         setupStackView()
         setupRegisterButton()
+        setupSuccessView()
     }
     
     private func setupStackView() {
@@ -122,6 +132,18 @@ class RegisterView: UIView {
             registerButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             registerButton.widthAnchor.constraint(equalToConstant: frame.width/2),
             registerButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
+    }
+    
+    private func setupSuccessView() {
+        addSubview(successView)
+        successView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            successView.topAnchor.constraint(equalTo: self.topAnchor),
+            successView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            successView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            successView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
     

@@ -131,15 +131,28 @@ struct APIClient {
         }
     }
     
-}
-
-
-extension URLRequest {
-    func setupPostRequest(type: String, url: URL, data: Data) -> URLRequest {
-        var request = URLRequest(url: url)
-        request.httpMethod = type
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = data
-        return request
+//    https://raffle-fs-app.herokuapp.com/api/raffles/34/
+    
+    static func fetchSecretToken(for id: Int, completion: @escaping (Result<Raffle,AppError>) -> ()) {
+        let endpointURLString = "https://raffle-fs-app.herokuapp.com/api/raffles/\(id)"
+        guard let url = URL(string: endpointURLString) else {
+            return
+        }
+        let request = URLRequest(url: url)
+        NetworkHelper.shared.performDataTask(with: request) { (result) in
+            switch result {
+            case .failure(let appError):
+                completion(.failure(.networkClientError(appError)))
+            case .success(let data):
+                do {
+                    let raffle = try JSONDecoder().decode(Raffle.self, from: data)
+                    completion(.success(raffle))
+                } catch {
+                    completion(.failure(.decodingError(error)))
+                }
+            }
+        }
+        
     }
 }
+

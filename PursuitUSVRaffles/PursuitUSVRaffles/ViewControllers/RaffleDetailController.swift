@@ -8,7 +8,7 @@
 import UIKit
 
 class RaffleDetailController: UIViewController {
-
+    
     let raffle: Raffle
     
     let detailView = RaffleDetailView()
@@ -134,11 +134,11 @@ extension RaffleDetailController: DetailViewDelegate {
     func handleSegController(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            detailView.nameLabel.text = raffle.name
-            registerView.removeFromSuperview()
-            winnerView.removeFromSuperview()
-            pickWinnerView.removeFromSuperview()
-            detailView.contentContainer.addSubview(collectionView)
+//            registerView.removeFromSuperview()
+//            winnerView.removeFromSuperview()
+//            pickWinnerView.removeFromSuperview()
+//            detailView.contentContainer.addSubview(collectionView)
+            loadCollectionView()
         case 1:
             winnerView.removeFromSuperview()
             pickWinnerView.removeFromSuperview()
@@ -147,6 +147,14 @@ extension RaffleDetailController: DetailViewDelegate {
             registerView.removeFromSuperview()
             handleAWinner(pickWinnerView)
         }
+    }
+    
+    func loadCollectionView() {
+        detailView.nameLabel.text = raffle.name
+        registerView.removeFromSuperview()
+        winnerView.removeFromSuperview()
+        pickWinnerView.removeFromSuperview()
+        detailView.contentContainer.addSubview(collectionView)
     }
     
     func handleDismiss() {
@@ -203,19 +211,37 @@ extension RaffleDetailController: UITextFieldDelegate {
 extension RaffleDetailController: RegisterDelegate {
     func handleRegistration() {
         
-        if !firstname.isEmpty && !lastname.isEmpty && !email.isEmpty {
-            let participant = ParticipantPost(firstname: firstname, lastname: lastname, email: email, phone: phone)
-            guard let id = raffle.id else { return }
-            APIClient.postParticipant(for: participant, with: id) { result in
-                switch result {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .success(let passed):
-                    print(passed)
-                    self.loadParticipants()
-                }
+//        if !firstname.isEmpty && !lastname.isEmpty && !email.isEmpty {
+//            let participant = ParticipantPost(firstname: firstname, lastname: lastname, email: email, phone: phone)
+//            guard let id = raffle.id else { return }
+//            APIClient.postParticipant(for: participant, with: id) { result in
+//                switch result {
+//                case .failure(let error):
+//                    print(error.localizedDescription)
+//                case .success(let passed):
+//                    print(passed)
+//                    DispatchQueue.main.async {
+//                        self.loadParticipants()
+//                        UIView.animate(withDuration: 1.5) {
+//                            self.registerView.successView.alpha = 1
+//                        }
+//                    }
+//                }
+//            }
+            
+//            registerView.nameTextField.text = ""
+//            registerView.emailTextField.text = ""
+//            registerView.phoneTextField.text = ""
+//
+//        }
+        
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 1.5) {
+                self.registerView.successView.alpha = 1
             }
         }
         
     }
+    
 }
+

@@ -70,7 +70,6 @@ class RaffleDetailView: UIView {
         setupNameLabel()
         setupSegControl()
         setupContentContainer()
-//        contentContainer.addSubview(registerView)
     }
     
     private func setupBackButton() {

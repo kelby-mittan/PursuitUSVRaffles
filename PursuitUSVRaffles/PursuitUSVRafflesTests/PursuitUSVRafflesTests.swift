@@ -11,7 +11,7 @@ import XCTest
 class PursuitUSVRafflesTests: XCTestCase {
     
     func testFetchingRaffles() {
-        let expected = 8
+        let expected = 31
         let exp = XCTestExpectation(description: "Test")
         APIClient.fetchRaffles { (result) in
             switch result {
@@ -44,6 +44,23 @@ class PursuitUSVRafflesTests: XCTestCase {
         wait(for: [exp], timeout: 4.0)
     }
     
+    func testFetchingRaffleToken() {
+        let expected = "test123"
+        let exp = XCTestExpectation(description: "Test Rose")
+        APIClient.fetchSecretToken(for: 34) { (result) in
+            switch result {
+            case .failure(let error):
+                XCTFail("Failed Test \(error)")
+            case .success(let participants):
+                let participantLastName = participants.secretToken ?? "nope"
+                dump(participants)
+                XCTAssertEqual(participantLastName, expected)
+            }
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 4.0)
+    }
+    
 //    func testPostingRaffle() {
 //        let raffle = RafflePost(name: "Puppy Dog Raffle", secretToken: "puppy123")
 //        let exp = XCTestExpectation(description: "Post Test")
@@ -59,20 +76,20 @@ class PursuitUSVRafflesTests: XCTestCase {
 //        wait(for: [exp], timeout: 3.0)
 //    }
     
-    func testPutWinner() {
-        let token = SecretToken(secretToken: "jobs123")
-        let exp = XCTestExpectation(description: "Put Test")
-        APIClient.putWinnerRequest(for: token, with: 78) { result in
-            switch result {
-            case .failure(let error):
-                XCTFail("Failed Test \(error.localizedDescription)")
-            case .success(let passed):
-                XCTAssertTrue(passed, "Successfull Put Request")
-            }
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 3.0)
-    }
+//    func testPutWinner() {
+//        let token = SecretToken(secretToken: "jobs123")
+//        let exp = XCTestExpectation(description: "Put Test")
+//        APIClient.putWinnerRequest(for: token, with: 78) { result in
+//            switch result {
+//            case .failure(let error):
+//                XCTFail("Failed Test \(error.localizedDescription)")
+//            case .success(let passed):
+//                XCTAssertTrue(passed, "Successfull Put Request")
+//            }
+//            exp.fulfill()
+//        }
+//        wait(for: [exp], timeout: 3.0)
+//    }
     
 //    func testPostingParticipant() {
 //        let participant = ParticipantPost(firstname: "scooby", lastname: "doo", email: "scoobs@ruff.com", phone: "")

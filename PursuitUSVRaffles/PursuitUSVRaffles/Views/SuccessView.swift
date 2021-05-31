@@ -42,8 +42,8 @@ class SuccessView: UIView {
         addSubview(successIV)
         successIV.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            successIV.centerXAnchor.constraint(equalTo: centerXAnchor),
-            successIV.centerYAnchor.constraint(equalTo: centerYAnchor),
+            successIV.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            successIV.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             successIV.widthAnchor.constraint(equalToConstant: frame.width/2),
             successIV.heightAnchor.constraint(equalToConstant: frame.width/2)
         ])
