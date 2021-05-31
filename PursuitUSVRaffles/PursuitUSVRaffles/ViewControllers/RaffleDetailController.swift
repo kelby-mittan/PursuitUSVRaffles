@@ -30,6 +30,7 @@ class RaffleDetailController: UIViewController {
     
     private lazy var registerView: RegisterView = {
         let view = RegisterView()
+        view.delegate = self
         return view
     }()
     
@@ -42,6 +43,11 @@ class RaffleDetailController: UIViewController {
         let view = PickWinnerView()
         return view
     }()
+    
+    private var firstname = ""
+    private var lastname = ""
+    private var email = ""
+    private var phone = ""
     
     init(_ raffle: Raffle) {
         self.raffle = raffle
@@ -63,6 +69,13 @@ class RaffleDetailController: UIViewController {
         configureCollectionViewLayout()
         configureCollectionViewDataSource()
         loadParticipants()
+        setupTextFieldDelegates()
+    }
+    
+    private func setupTextFieldDelegates() {
+        registerView.nameTextField.delegate = self
+        registerView.emailTextField.delegate = self
+        registerView.phoneTextField.delegate = self
     }
     
     private func loadParticipants() {
@@ -153,3 +166,56 @@ extension RaffleDetailController: DetailViewDelegate {
     }
 }
 
+extension RaffleDetailController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        setRegisterText(textField: textField)
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        setRegisterText(textField: textField)
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        setRegisterText(textField: textField)
+    }
+    
+    func setRegisterText(textField: UITextField) {
+        switch textField {
+        case registerView.nameTextField:
+            let nameText = textField.text ?? ""
+            if nameText.contains(" ") {
+                firstname = nameText.components(separatedBy: " ").first ?? ""
+                lastname = nameText.components(separatedBy: " ").last ?? ""
+            }
+        case registerView.emailTextField:
+            email = textField.text ?? ""
+        case registerView.phoneTextField:
+            phone = textField.text ?? ""
+        default:
+            print("helllloooo")
+        }
+    }
+}
+
+extension RaffleDetailController: RegisterDelegate {
+    func handleRegistration() {
+        
+        if !firstname.isEmpty && !lastname.isEmpty && !email.isEmpty {
+            let participant = ParticipantPost(firstname: firstname, lastname: lastname, email: email, phone: phone)
+            guard let id = raffle.id else { return }
+            APIClient.postParticipant(for: participant, with: id) { result in
+                switch result {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .success(let passed):
+                    print(passed)
+                    self.loadParticipants()
+                }
+            }
+        }
+        
+    }
+}

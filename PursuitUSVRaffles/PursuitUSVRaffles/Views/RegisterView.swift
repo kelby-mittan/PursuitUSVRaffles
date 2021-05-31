@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol RegisterDelegate {
+    func handleRegistration()
+}
+
 class RegisterView: UIView {
+    
+    var delegate: RegisterDelegate?
     
     lazy var stackView: UIStackView = {
         let stack = UIStackView()
@@ -120,7 +126,7 @@ class RegisterView: UIView {
     }
     
     @objc func handleRegister() {
-//        delegate?.handleCreate()
+        delegate?.handleRegistration()
     }
     
 }

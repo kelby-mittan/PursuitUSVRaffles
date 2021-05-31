@@ -193,37 +193,16 @@ extension HomeController: PopUpDelegate {
 extension HomeController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        print("should return called")
-        
-//        if textField == popUpView.nameTextField {
-//            raffleCreatedName = textField.text ?? ""
-//        }
-//        if textField == popUpView.tokenTextField {
-//            raffleToken = textField.text ?? ""
-//        }
         setNameAndToken(textField: textField)
         textField.resignFirstResponder()
         return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-//        if textField == popUpView.nameTextField {
-//            raffleCreatedName = textField.text ?? ""
-//        }
-//        if textField == popUpView.tokenTextField {
-//            raffleToken = textField.text ?? ""
-//        }
         setNameAndToken(textField: textField)
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
-//        if textField == popUpView.nameTextField {
-//            raffleCreatedName = textField.text ?? ""
-//        }
-//        if textField == popUpView.tokenTextField {
-//            raffleToken = textField.text ?? ""
-//        }
         setNameAndToken(textField: textField)
     }
     
