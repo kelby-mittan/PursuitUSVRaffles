@@ -9,21 +9,48 @@ import UIKit
 
 class RaffleDetailController: UIViewController {
 
+    let raffle: Raffle
+    
     let detailView = RaffleDetailView()
     
     typealias DataSource = UICollectionViewDiffableDataSource<Section,Participant>
     typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<Section,Participant>
     
     private var collectionView: UICollectionView! = nil
-    
     private var dataSource: DataSource!
     private var snapshot = DataSourceSnapshot()
     
+    private var participants = [Participant]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
     private lazy var registerView: RegisterView = {
         let view = RegisterView()
-//        view.delegate = self
         return view
     }()
+    
+    private lazy var winnerView: WinnerView = {
+        let view = WinnerView()
+        return view
+    }()
+    
+    private lazy var pickWinnerView: PickWinnerView = {
+        let view = PickWinnerView()
+        return view
+    }()
+    
+    init(_ raffle: Raffle) {
+        self.raffle = raffle
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = detailView
@@ -39,12 +66,15 @@ class RaffleDetailController: UIViewController {
     }
     
     private func loadParticipants() {
-        APIClient.fetchRaffleParticipants(for: 34) { (result) in
+        guard let id = raffle.id, let name = raffle.name else { return }
+        detailView.nameLabel.text = name
+        APIClient.fetchRaffleParticipants(for: id) { (result) in
             switch result {
             case .failure(let error):
                 print(error.localizedDescription)
             case .success(let participants):
                 dump(participants)
+                self.participants = participants
                 self.applySnapshot(participants: participants)
             }
         }
@@ -60,13 +90,9 @@ extension RaffleDetailController {
     
     private func configureCollectionViewLayout() {
         collectionView = UICollectionView(frame: detailView.contentContainer.bounds, collectionViewLayout: CVLayout.createCVLayout(insetVert: 8, insetHor: 8, height: 200))
-//        collectionView.delegate = self
         collectionView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         collectionView.backgroundColor = .systemTeal
         collectionView.register(ParticipantCell.self, forCellWithReuseIdentifier: ParticipantCell.reuseIdentifier)
-        
-//        let sView = RegisterView()
-
         detailView.contentContainer.addSubview(collectionView)
         
     }
@@ -95,37 +121,35 @@ extension RaffleDetailController: DetailViewDelegate {
     func handleSegController(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            print("participants")
+            detailView.nameLabel.text = raffle.name
             registerView.removeFromSuperview()
+            winnerView.removeFromSuperview()
+            pickWinnerView.removeFromSuperview()
             detailView.contentContainer.addSubview(collectionView)
         case 1:
-//            let sView = RegisterView()
-            collectionView.removeFromSuperview()
-            detailView.contentContainer.addSubview(registerView)
-            print("register")
+            winnerView.removeFromSuperview()
+            pickWinnerView.removeFromSuperview()
+            handleAWinner(registerView)
         default:
-            print("winner")
+            registerView.removeFromSuperview()
+            handleAWinner(pickWinnerView)
         }
     }
     
     func handleDismiss() {
         self.dismiss(animated: true)
     }
-}
-
-struct CVLayout {
-    static func createCVLayout(insetVert: CGFloat, insetHor: CGFloat, height: CGFloat) -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: insetVert, leading: insetHor, bottom: insetVert, trailing: insetHor)
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(height))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
-        let section = NSCollectionLayoutSection(group: group)
-        
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        
-        return layout
+    
+    func handleAWinner(_ view: UIView) {
+        collectionView.removeFromSuperview()
+        let participant = participants.filter{$0.id == raffle.winnerID}.first
+        if let winner = participant {
+            winnerView.configureView(winner, raffle)
+            detailView.contentContainer.addSubview(winnerView)
+            detailView.nameLabel.text = "Winner id: \(participant?.id?.description ?? "")"
+        } else {
+            detailView.contentContainer.addSubview(view)
+        }
     }
 }
+

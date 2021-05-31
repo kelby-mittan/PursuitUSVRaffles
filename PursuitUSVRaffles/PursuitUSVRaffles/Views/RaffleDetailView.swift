@@ -22,7 +22,6 @@ class RaffleDetailView: UIView {
         
     public lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "iPhone 12 Pro Raffle"
         label.numberOfLines = 2
         label.font = UIFont.boldSystemFont(ofSize: 22)
         label.textAlignment = .center
@@ -118,14 +117,6 @@ class RaffleDetailView: UIView {
     }
     
     @objc private func handleSegmentedControlChange(_ sender: UISegmentedControl) {
-//        switch sender.selectedSegmentIndex {
-//        case 0:
-//            print("participants")
-//        case 1:
-//            print("register")
-//        default:
-//            print("winner")
-//        }
         delegate?.handleSegController(sender)
     }
     

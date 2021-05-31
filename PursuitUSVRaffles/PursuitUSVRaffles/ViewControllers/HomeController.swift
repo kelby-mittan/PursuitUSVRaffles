@@ -15,10 +15,8 @@ class HomeController: UIViewController {
     typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<Section,Raffle>
     
     private var collectionView: UICollectionView! = nil
-    
     private var dataSource: DataSource!
     private var snapshot = DataSourceSnapshot()
-    
     private var raffleCreatedName = ""
     private var raffleToken = ""
     
@@ -134,7 +132,7 @@ extension HomeController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let raffle = dataSource.itemIdentifier(for: indexPath) else { return }
         print(raffle.name ?? "")
-        let vc = RaffleDetailController()
+        let vc = RaffleDetailController(raffle)
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }

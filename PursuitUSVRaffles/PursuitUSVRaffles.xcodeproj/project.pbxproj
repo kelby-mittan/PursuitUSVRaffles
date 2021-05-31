@@ -31,6 +31,9 @@
 		02A966AE266521AD003899E0 /* RaffleDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966AD266521AD003899E0 /* RaffleDetailView.swift */; };
 		02A966B0266552C3003899E0 /* SegmentedControl+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966AF266552C3003899E0 /* SegmentedControl+Extension.swift */; };
 		02A966B226655E99003899E0 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966B126655E98003899E0 /* RegisterView.swift */; };
+		02A966B42665649C003899E0 /* CVLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966B32665649C003899E0 /* CVLayout.swift */; };
+		02A966B62665688A003899E0 /* WinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966B52665688A003899E0 /* WinnerView.swift */; };
+		02A966B826656B33003899E0 /* PickWinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966B726656B33003899E0 /* PickWinnerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +84,9 @@
 		02A966AD266521AD003899E0 /* RaffleDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaffleDetailView.swift; sourceTree = "<group>"; };
 		02A966AF266552C3003899E0 /* SegmentedControl+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SegmentedControl+Extension.swift"; sourceTree = "<group>"; };
 		02A966B126655E98003899E0 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		02A966B32665649C003899E0 /* CVLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CVLayout.swift; sourceTree = "<group>"; };
+		02A966B52665688A003899E0 /* WinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinnerView.swift; sourceTree = "<group>"; };
+		02A966B726656B33003899E0 /* PickWinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickWinnerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +206,8 @@
 				02A966A326644FC5003899E0 /* RafflePopUpView.swift */,
 				02A966A926646E82003899E0 /* SuccessView.swift */,
 				02A966B126655E98003899E0 /* RegisterView.swift */,
+				02A966B52665688A003899E0 /* WinnerView.swift */,
+				02A966B726656B33003899E0 /* PickWinnerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -220,6 +228,7 @@
 				02A966A126631DFD003899E0 /* Date+String+Extension.swift */,
 				02A966A52664512A003899E0 /* CustomTextField.swift */,
 				02A966AF266552C3003899E0 /* SegmentedControl+Extension.swift */,
+				02A966B32665649C003899E0 /* CVLayout.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -364,6 +373,7 @@
 				02A966AE266521AD003899E0 /* RaffleDetailView.swift in Sources */,
 				02A966582662B14D003899E0 /* AppDelegate.swift in Sources */,
 				02A9669E266310AA003899E0 /* ColorPallete.swift in Sources */,
+				02A966B62665688A003899E0 /* WinnerView.swift in Sources */,
 				02A966912662B29E003899E0 /* HomeController.swift in Sources */,
 				02A966992662D440003899E0 /* Participant.swift in Sources */,
 				02A966952662C5BE003899E0 /* AppError.swift in Sources */,
@@ -372,6 +382,8 @@
 				02A966A426644FC6003899E0 /* RafflePopUpView.swift in Sources */,
 				02A966A226631DFD003899E0 /* Date+String+Extension.swift in Sources */,
 				02A9668A2662B1C3003899E0 /* Raffle.swift in Sources */,
+				02A966B826656B33003899E0 /* PickWinnerView.swift in Sources */,
+				02A966B42665649C003899E0 /* CVLayout.swift in Sources */,
 				02A966B0266552C3003899E0 /* SegmentedControl+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
