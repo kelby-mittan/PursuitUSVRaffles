@@ -23,7 +23,8 @@ class RaffleDetailView: UIView {
     public lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
-        label.font = UIFont.boldSystemFont(ofSize: 22)
+        label.textColor = ColorPallete.offWhite.colour
+        label.font = .boldSystemFont(ofSize: 28)
         label.textAlignment = .center
         return label
     }()
@@ -32,21 +33,22 @@ class RaffleDetailView: UIView {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "arrow.backward.square.fill"), for: .normal)
         button.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
+        button.tintColor = ColorPallete.offWhite.colour
         return button
     }()
     
     public lazy var segmentedControl: UISegmentedControl = {
         let segControl = UISegmentedControl(items: items as [Any])
-        segControl.backgroundColor = .systemGray
+        segControl.backgroundColor = ColorPallete.offWhite.colour
         segControl.selectedSegmentIndex = 0
-        segControl.selectedSegmentTintColor(.blue)
+        segControl.selectedSegmentTintColor(ColorPallete.lightBlue.colour)
         segControl.addTarget(self, action: #selector(handleSegmentedControlChange(_:)), for: .valueChanged)
         return segControl
     }()
     
     public lazy var contentContainer: UIView = {
         let view = UIView()
-        view.backgroundColor = .orange
+        view.backgroundColor = ColorPallete.lightBlue.colour
         return view
     }()
     
@@ -66,6 +68,7 @@ class RaffleDetailView: UIView {
     }
     
     private func commonInit() {
+        backgroundColor = ColorPallete.lightBlue.colour
         setupBackButton()
         setupNameLabel()
         setupSegControl()

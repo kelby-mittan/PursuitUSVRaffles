@@ -12,6 +12,7 @@ class SuccessView: UIView {
     public lazy var successIV: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(systemName: "checkmark.seal.fill")
+        iv.tintColor = ColorPallete.lightBlue.colour
         return iv
     }()
     
@@ -19,6 +20,7 @@ class SuccessView: UIView {
         let label = UILabel()
         label.text = "Raffle Created"
         label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.textColor = ColorPallete.lightBlue.colour
         label.textAlignment = .center
         return label
     }()

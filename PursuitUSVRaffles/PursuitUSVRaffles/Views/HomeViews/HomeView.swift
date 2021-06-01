@@ -17,14 +17,15 @@ class HomeView: UIView {
         button.setBackgroundImage(UIImage(systemName: "note.text.badge.plus"), for: .normal)
         button.backgroundColor = .clear
         button.contentMode = .center
-        button.tintColor = .orange
+        button.tintColor = ColorPallete.lightBlue.colour
         return button
     }()
     
     public lazy var headerLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .largeTitle)
+        label.font = .boldSystemFont(ofSize: 40)
         label.text = "Raffle List"
+        label.textColor = ColorPallete.lightBlue.colour
         return label
     }()
     

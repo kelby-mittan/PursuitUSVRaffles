@@ -20,7 +20,6 @@ class RafflePopUpView: UIView {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "xmark.rectangle.fill"), for: .normal)
         button.tintColor = ColorPallete.peach.colour
-//        button.backgroundColor = ColorPallete.lightGreen.colour
         button.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
         return button
     }()
@@ -28,6 +27,7 @@ class RafflePopUpView: UIView {
     public lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Create a Raffle"
+        label.textColor = ColorPallete.lightBlue.colour
         label.font = UIFont.boldSystemFont(ofSize: 24)
         return label
     }()
@@ -35,12 +35,16 @@ class RafflePopUpView: UIView {
     public lazy var nameTextField: CustomTextField = {
         let textField = CustomTextField(insets: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12))
         textField.placeholder = "enter raffle name"
+        textField.layer.borderColor = ColorPallete.lightBlue.colour.cgColor
+        textField.textColor = ColorPallete.lightBlue.colour
         return textField
     }()
     
     public lazy var tokenTextField: CustomTextField = {
         let textField = CustomTextField(insets: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12))
         textField.placeholder = "enter a secret token"
+        textField.layer.borderColor = ColorPallete.lightBlue.colour.cgColor
+        textField.textColor = ColorPallete.lightBlue.colour
         return textField
     }()
     
@@ -48,7 +52,7 @@ class RafflePopUpView: UIView {
         let button = UIButton()
         button.setTitle("Create", for: .normal)
         button.layer.cornerRadius = 18
-        button.backgroundColor = ColorPallete.lightGreen.colour
+        button.backgroundColor = ColorPallete.lightBlue.colour
         button.addTarget(self, action: #selector(handleSubmit), for: .touchUpInside)
         return button
     }()

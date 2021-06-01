@@ -33,7 +33,7 @@ class RegisterView: UIView {
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name"
-        label.textColor = .black
+        label.textColor = ColorPallete.offWhite.colour
         label.textAlignment = .left
         label.font = .preferredFont(forTextStyle: .headline)
         return label
@@ -42,13 +42,15 @@ class RegisterView: UIView {
     public lazy var nameTextField: CustomTextField = {
         let textField = CustomTextField(insets: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12))
         textField.placeholder = "enter your name"
+        textField.backgroundColor = ColorPallete.offWhite.colour
+        textField.textColor = ColorPallete.lightBlue.colour
         return textField
     }()
     
     private lazy var emailLabel: UILabel = {
         let label = UILabel()
         label.text = "Email"
-        label.textColor = .black
+        label.textColor = ColorPallete.offWhite.colour
         label.textAlignment = .left
         label.font = .preferredFont(forTextStyle: .headline)
         label.alpha = 1
@@ -58,6 +60,8 @@ class RegisterView: UIView {
     public lazy var emailTextField: CustomTextField = {
         let textField = CustomTextField(insets: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12))
         textField.placeholder = "enter your email"
+        textField.backgroundColor = ColorPallete.offWhite.colour
+        textField.textColor = ColorPallete.lightBlue.colour
         return textField
     }()
     
@@ -65,7 +69,7 @@ class RegisterView: UIView {
         let label = UILabel()
         label.text = "Phone"
         label.numberOfLines = 1
-        label.textColor = .black
+        label.textColor = ColorPallete.offWhite.colour
         label.textAlignment = .left
         label.font = .preferredFont(forTextStyle: .headline)
         label.alpha = 1
@@ -76,6 +80,8 @@ class RegisterView: UIView {
         let textField = CustomTextField(insets: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12))
         textField.placeholder = "enter your phone #"
         textField.keyboardType = .numbersAndPunctuation
+        textField.backgroundColor = ColorPallete.offWhite.colour
+        textField.textColor = ColorPallete.lightBlue.colour
         return textField
     }()
     
@@ -83,7 +89,8 @@ class RegisterView: UIView {
         let button = UIButton()
         button.setTitle("Register", for: .normal)
         button.layer.cornerRadius = 18
-        button.backgroundColor = ColorPallete.lightGreen.colour
+        button.backgroundColor = ColorPallete.offWhite.colour
+        button.setTitleColor(ColorPallete.lightBlue.colour, for: .normal)
         button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
         return button
     }()
@@ -91,9 +98,11 @@ class RegisterView: UIView {
     public lazy var successView: SuccessView = {
         let view = SuccessView()
         view.alpha = 0
-        view.backgroundColor = .white
+        view.backgroundColor = ColorPallete.lightBlue.colour
         view.successIV.image = UIImage(systemName: "checkmark")
+        view.successIV.tintColor = ColorPallete.offWhite.colour
         view.titleLabel.text = "You're registered for the raffle"
+        view.titleLabel.textColor = ColorPallete.offWhite.colour
         return view
     }()
     
@@ -138,7 +147,7 @@ class RegisterView: UIView {
     private func setupSuccessView() {
         addSubview(successView)
         successView.translatesAutoresizingMaskIntoConstraints = false
-        successView.backgroundColor = .red
+        successView.backgroundColor = ColorPallete.lightBlue.colour
         NSLayoutConstraint.activate([
             successView.topAnchor.constraint(equalTo: self.topAnchor),
             successView.leadingAnchor.constraint(equalTo: self.leadingAnchor),

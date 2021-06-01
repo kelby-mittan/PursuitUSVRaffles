@@ -14,9 +14,9 @@ class RaffleCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.textColor = .black
+        label.textColor = ColorPallete.offWhite.colour
         label.textAlignment = .left
-        label.font = .preferredFont(forTextStyle: .title1)
+        label.font = .boldSystemFont(ofSize: 28)
         label.alpha = 1
         return label
     }()
@@ -25,7 +25,7 @@ class RaffleCell: UICollectionViewCell {
         let label = UILabel()
         label.text = ""
         label.numberOfLines = 2
-        label.textColor = .black
+        label.textColor = ColorPallete.offWhite.colour
         label.textAlignment = .left
         label.font = .preferredFont(forTextStyle: .headline)
         label.alpha = 1
@@ -35,7 +35,7 @@ class RaffleCell: UICollectionViewCell {
     private lazy var winnerLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.textColor = .black
+        label.textColor = ColorPallete.offWhite.colour
         label.textAlignment = .left
         label.font = .preferredFont(forTextStyle: .headline)
         label.alpha = 1
@@ -46,7 +46,7 @@ class RaffleCell: UICollectionViewCell {
         let label = UILabel()
         label.text = ""
         label.numberOfLines = 2
-        label.textColor = .black
+        label.textColor = ColorPallete.offWhite.colour
         label.textAlignment = .left
         label.font = .preferredFont(forTextStyle: .headline)
         label.alpha = 1
@@ -101,7 +101,7 @@ class RaffleCell: UICollectionViewCell {
         setupCreatedAtLabel()
         setupWinnerLabel()
         setupRaffledAtLabel()
-        self.backgroundColor = .cyan
+        self.backgroundColor = ColorPallete.lightBlue.colour
         self.layer.cornerRadius = 12
     }
     

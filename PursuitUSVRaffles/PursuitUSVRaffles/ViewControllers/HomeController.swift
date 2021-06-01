@@ -41,7 +41,6 @@ class HomeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .green
         homeView.createRaffleButton.addTarget(self, action: #selector(raffleButtonPressed), for: .touchUpInside)
         popUpView.nameTextField.delegate = self
         popUpView.tokenTextField.delegate = self
@@ -50,6 +49,10 @@ class HomeController: UIViewController {
         loadRaffles()
         setupVisualEffect()
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        loadRaffles()
     }
     
     private func loadRaffles() {
@@ -106,7 +109,7 @@ extension HomeController {
         collectionView = UICollectionView(frame: homeView.cvContainerView.bounds, collectionViewLayout: CVLayout.createCVLayout(insetVert: 8, insetHor: 18, height: 220))
         collectionView.delegate = self
         collectionView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-        collectionView.backgroundColor = .systemTeal
+        collectionView.backgroundColor = ColorPallete.offWhite.colour
         collectionView.register(RaffleCell.self, forCellWithReuseIdentifier: RaffleCell.reuseIdentifier)
         homeView.cvContainerView.addSubview(collectionView)
     }
@@ -126,7 +129,7 @@ extension HomeController {
         snapshot = DataSourceSnapshot()
         snapshot.appendSections([Section.main])
         snapshot.appendItems(raffles)
-        dataSource.apply(snapshot, animatingDifferences: false)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
@@ -149,41 +152,26 @@ extension HomeController: PopUpDelegate {
     func handleCreate() {
         
         if !raffleCreatedName.isEmpty && !raffleToken.isEmpty {
-//            let newRaffle = RafflePost(name: raffleCreatedName, secretToken: raffleToken)
-//            
-//            APIClient.postRaffle(for: newRaffle) { [weak self] result in
-//                DispatchQueue.main.async {
-//                    switch result {
-//                    case .failure(let error):
-//                        print("Error Posting Raffle \(error.localizedDescription)")
-//                    case .success(let passed):
-//                        print(passed)
-//                        UIView.animate(withDuration: 1.0) {
-//                            self?.popUpView.successView.alpha = 1
-//                        } completion: { _ in
-//                            self?.dismissPopUp()
-//                            self?.popUpView.nameTextField.text = ""
-//                            self?.popUpView.tokenTextField.text = ""
-//                        }
-//                        
-//                    }
-//                }
-//            }
-            
-            
-            DispatchQueue.main.async {
-                UIView.animate(withDuration: 1.0) {
-                    self.popUpView.successView.alpha = 1
-                } completion: { _ in
-                    self.dismissPopUp()
-                    self.popUpView.nameTextField.text = ""
-                    self.popUpView.tokenTextField.text = ""
+            let newRaffle = RafflePost(name: raffleCreatedName, secretToken: raffleToken)
+            APIClient.postRaffle(for: newRaffle) { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .failure(let error):
+                        print("Error Posting Raffle \(error.localizedDescription)")
+                    case .success(_):
+                        self?.loadRaffles()
+                        UIView.animate(withDuration: 1.0) {
+                            self?.popUpView.successView.alpha = 1
+                        } completion: { _ in
+                            self?.dismissPopUp()
+                            self?.popUpView.nameTextField.text = ""
+                            self?.popUpView.tokenTextField.text = ""
+                        }
+                        
+                    }
                 }
             }
         } else {
-//            let alert = UIAlertController(title: "Please fill out both fields", message: "", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "Ok", style: .default))
-//            self.present(alert, animated: true, completion: nil)
             self.showAlert(alertText: "Please fill out both fields", alertMessage: "")
         }
         

@@ -18,7 +18,7 @@ class PickWinnerView: UIView {
     private lazy var tokenLabel: UILabel = {
         let label = UILabel()
         label.text = "Secret Token"
-        label.textColor = .black
+        label.textColor = ColorPallete.offWhite.colour
         label.textAlignment = .left
         label.font = .preferredFont(forTextStyle: .headline)
         return label
@@ -27,6 +27,8 @@ class PickWinnerView: UIView {
     public lazy var tokenTextField: CustomTextField = {
         let textField = CustomTextField(insets: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12))
         textField.placeholder = "enter the secret token"
+        textField.backgroundColor = ColorPallete.offWhite.colour
+        textField.textColor = ColorPallete.lightBlue.colour
         return textField
     }()
     
@@ -34,7 +36,8 @@ class PickWinnerView: UIView {
         let button = UIButton()
         button.setTitle("Pick Winner", for: .normal)
         button.layer.cornerRadius = 18
-        button.backgroundColor = ColorPallete.lightGreen.colour
+        button.backgroundColor = ColorPallete.offWhite.colour
+        button.setTitleColor(ColorPallete.lightBlue.colour, for: .normal)
         button.addTarget(self, action: #selector(handlePickingWinner), for: .touchUpInside)
         return button
     }()
@@ -44,7 +47,9 @@ class PickWinnerView: UIView {
         view.alpha = 0
         view.backgroundColor = .white
         view.successIV.image = UIImage(systemName: "sparkles")
+        view.successIV.tintColor = ColorPallete.offWhite.colour
         view.titleLabel.text = ""
+        view.titleLabel.textColor = ColorPallete.offWhite.colour
         return view
     }()
     
@@ -82,7 +87,7 @@ class PickWinnerView: UIView {
             tokenTextField.topAnchor.constraint(equalTo: tokenLabel.bottomAnchor, constant: 12),
             tokenTextField.leadingAnchor.constraint(equalTo: tokenLabel.leadingAnchor),
             tokenTextField.trailingAnchor.constraint(equalTo: tokenLabel.trailingAnchor),
-            tokenTextField.heightAnchor.constraint(equalToConstant: 44)
+            tokenTextField.heightAnchor.constraint(equalToConstant: 34)
         ])
     }
     
@@ -100,7 +105,7 @@ class PickWinnerView: UIView {
     private func setupSuccessView() {
         addSubview(successView)
         successView.translatesAutoresizingMaskIntoConstraints = false
-        successView.backgroundColor = .red
+        successView.backgroundColor = ColorPallete.lightBlue.colour
         NSLayoutConstraint.activate([
             successView.topAnchor.constraint(equalTo: self.topAnchor),
             successView.leadingAnchor.constraint(equalTo: self.leadingAnchor),

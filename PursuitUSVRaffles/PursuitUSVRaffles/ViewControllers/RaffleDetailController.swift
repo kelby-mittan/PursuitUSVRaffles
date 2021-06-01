@@ -68,7 +68,6 @@ class RaffleDetailController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        detailView.backgroundColor = .systemBackground
         detailView.delegate = self
         configureCollectionViewLayout()
         configureCollectionViewDataSource()
@@ -111,7 +110,7 @@ extension RaffleDetailController {
     private func configureCollectionViewLayout() {
         collectionView = UICollectionView(frame: detailView.contentContainer.bounds, collectionViewLayout: CVLayout.createCVLayout(insetVert: 8, insetHor: 8, height: 200))
         collectionView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-        collectionView.backgroundColor = .systemTeal
+        collectionView.backgroundColor = ColorPallete.lightBlue.colour
         collectionView.register(ParticipantCell.self, forCellWithReuseIdentifier: ParticipantCell.reuseIdentifier)
         detailView.contentContainer.addSubview(collectionView)
         

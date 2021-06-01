@@ -8,9 +8,9 @@
 import UIKit
 
 enum ColorPallete: String {
-    case offWhite = "#f9f7e3"
-    case lightBlue = "#333fc1"
-    case lightGreen = "#a9bd95"
+    case offWhite = "#f5fffa"
+    case lightBlue = "#006994"
+    case lightGreen = "#c4d8e2"
     case peach = "#e2a093"
     case pink = "#c67eb2"
     case darkBlue = "#3e54c7"

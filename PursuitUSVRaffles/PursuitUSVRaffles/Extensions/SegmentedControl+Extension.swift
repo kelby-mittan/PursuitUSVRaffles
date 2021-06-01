@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UISegmentedControl{
+extension UISegmentedControl {
     func selectedSegmentTintColor(_ color: UIColor) {
         self.setTitleTextAttributes([.foregroundColor: color], for: .normal)
     }
@@ -15,3 +15,5 @@ extension UISegmentedControl{
         self.setTitleTextAttributes([.foregroundColor: color], for: .normal)
     }
 }
+
+

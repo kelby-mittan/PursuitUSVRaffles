@@ -14,6 +14,7 @@ class ParticipantCell: UICollectionViewCell {
     private lazy var participantIV: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(systemName: "person.crop.circle.fill")
+        iv.tintColor = ColorPallete.lightBlue.colour
         return iv
     }()
     
@@ -34,7 +35,7 @@ class ParticipantCell: UICollectionViewCell {
         let label = UILabel()
         label.text = ""
         label.numberOfLines = 1
-        label.textColor = .black
+        label.textColor = ColorPallete.lightBlue.colour
         label.textAlignment = .left
         label.font = .boldSystemFont(ofSize: 24)
         return label
@@ -43,7 +44,7 @@ class ParticipantCell: UICollectionViewCell {
     private lazy var idLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.textColor = .black
+        label.textColor = ColorPallete.lightBlue.colour
         label.textAlignment = .left
         label.font = .preferredFont(forTextStyle: .headline)
         label.alpha = 1
@@ -54,7 +55,7 @@ class ParticipantCell: UICollectionViewCell {
         let label = UILabel()
         label.text = ""
         label.numberOfLines = 2
-        label.textColor = .black
+        label.textColor = ColorPallete.lightBlue.colour
         label.textAlignment = .left
         label.font = .preferredFont(forTextStyle: .headline)
         label.alpha = 1
@@ -65,7 +66,7 @@ class ParticipantCell: UICollectionViewCell {
         let label = UILabel()
         label.text = ""
         label.numberOfLines = 1
-        label.textColor = .black
+        label.textColor = ColorPallete.lightBlue.colour
         label.textAlignment = .left
         label.font = .preferredFont(forTextStyle: .headline)
         label.alpha = 1
@@ -109,7 +110,7 @@ class ParticipantCell: UICollectionViewCell {
     }
     
     private func commonInit() {
-        self.backgroundColor = .cyan
+        self.backgroundColor = ColorPallete.offWhite.colour
         self.layer.cornerRadius = 12
         setupParticipantIV()
         setupStackView()
@@ -132,7 +133,6 @@ class ParticipantCell: UICollectionViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-//            stackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             stackView.leadingAnchor.constraint(equalTo: participantIV.trailingAnchor, constant: 8),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 8),
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: 20),

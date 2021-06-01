@@ -12,13 +12,14 @@ class WinnerView: UIView {
     private lazy var winnerIV: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(systemName: "person.crop.circle.fill")
+        iv.tintColor = ColorPallete.offWhite.colour
         return iv
     }()
     
     private lazy var winnerLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.textColor = .black
+        label.textColor = ColorPallete.offWhite.colour
         label.numberOfLines = 4
         label.textAlignment = .center
         label.font = .boldSystemFont(ofSize: 20)

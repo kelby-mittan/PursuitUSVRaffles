@@ -204,10 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				02A966BB2665BDB5003899E0 /* HomeViews */,
-				02A966AD266521AD003899E0 /* RaffleDetailView.swift */,
-				02A966B126655E98003899E0 /* RegisterView.swift */,
-				02A966B52665688A003899E0 /* WinnerView.swift */,
-				02A966B726656B33003899E0 /* PickWinnerView.swift */,
+				02A966BC2665C3E6003899E0 /* DetailViews */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -242,6 +239,17 @@
 				02A966A926646E82003899E0 /* SuccessView.swift */,
 			);
 			path = HomeViews;
+			sourceTree = "<group>";
+		};
+		02A966BC2665C3E6003899E0 /* DetailViews */ = {
+			isa = PBXGroup;
+			children = (
+				02A966AD266521AD003899E0 /* RaffleDetailView.swift */,
+				02A966B126655E98003899E0 /* RegisterView.swift */,
+				02A966B52665688A003899E0 /* WinnerView.swift */,
+				02A966B726656B33003899E0 /* PickWinnerView.swift */,
+			);
+			path = DetailViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
