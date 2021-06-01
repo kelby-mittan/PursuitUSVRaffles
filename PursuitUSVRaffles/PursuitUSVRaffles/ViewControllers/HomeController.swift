@@ -53,13 +53,15 @@ class HomeController: UIViewController {
     }
     
     private func loadRaffles() {
-        APIClient.fetchRaffles { (result) in
-            switch result {
-            case .failure(let error):
-                print(error.localizedDescription)
-            case .success(let raffles):
-                dump(raffles)
-                self.applySnapshot(raffles: raffles)
+        APIClient.fetchRaffles { [weak self] (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .success(let raffles):
+                    dump(raffles)
+                    self?.applySnapshot(raffles: raffles)
+                }
             }
         }
     }
@@ -147,33 +149,42 @@ extension HomeController: PopUpDelegate {
     func handleCreate() {
         
         if !raffleCreatedName.isEmpty && !raffleToken.isEmpty {
-            let newRaffle = RafflePost(name: raffleCreatedName, secretToken: raffleToken)
-//            APIClient.postRaffle(for: newRaffle) { result in
-//                switch result {
-//                case .failure(let error):
-//                    print("Error Posting Raffle \(error.localizedDescription)")
-//                case .success(let passed):
-//                    print(passed)
-//                    DispatchQueue.main.async {
+//            let newRaffle = RafflePost(name: raffleCreatedName, secretToken: raffleToken)
+//            
+//            APIClient.postRaffle(for: newRaffle) { [weak self] result in
+//                DispatchQueue.main.async {
+//                    switch result {
+//                    case .failure(let error):
+//                        print("Error Posting Raffle \(error.localizedDescription)")
+//                    case .success(let passed):
+//                        print(passed)
 //                        UIView.animate(withDuration: 1.0) {
-//                            self.popUpView.successView.alpha = 1
+//                            self?.popUpView.successView.alpha = 1
 //                        } completion: { _ in
-//                            self.dismissPopUp()
+//                            self?.dismissPopUp()
+//                            self?.popUpView.nameTextField.text = ""
+//                            self?.popUpView.tokenTextField.text = ""
 //                        }
+//                        
 //                    }
 //                }
 //            }
+            
+            
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 1.0) {
                     self.popUpView.successView.alpha = 1
                 } completion: { _ in
                     self.dismissPopUp()
+                    self.popUpView.nameTextField.text = ""
+                    self.popUpView.tokenTextField.text = ""
                 }
             }
         } else {
-            let alert = UIAlertController(title: "Please fill out both fields", message: "", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default))
-            self.present(alert, animated: true, completion: nil)
+//            let alert = UIAlertController(title: "Please fill out both fields", message: "", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "Ok", style: .default))
+//            self.present(alert, animated: true, completion: nil)
+            self.showAlert(alertText: "Please fill out both fields", alertMessage: "")
         }
         
     }

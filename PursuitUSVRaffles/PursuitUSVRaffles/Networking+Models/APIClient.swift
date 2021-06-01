@@ -105,7 +105,7 @@ struct APIClient {
         }
     }
     
-    static func putWinnerRequest(for token: SecretToken, with id: Int, completion: @escaping (Result<Bool,AppError>) -> ()) {
+    static func putWinnerRequest(for token: SecretToken, with id: Int, completion: @escaping (Result<Participant,AppError>) -> ()) {
         
         let postParticipantEndpoint = "https://raffle-fs-app.herokuapp.com/api/raffles/\(id)/winner"
         guard let url = URL(string: postParticipantEndpoint) else {
@@ -123,17 +123,21 @@ struct APIClient {
                 case .failure(let appError):
                     completion(.failure(.networkClientError(appError)))
                 case .success:
-                    completion(.success(true))
+//                    completion(.success(true))
+                    do {
+                        let participant = try JSONDecoder().decode(Participant.self, from: data)
+                        completion(.success(participant))
+                    } catch {
+                        completion(.failure(.decodingError(error)))
+                    }
                 }
             }
         } catch {
             completion(.failure(.encodingError(error)))
         }
     }
-    
-//    https://raffle-fs-app.herokuapp.com/api/raffles/34/
-    
-    static func fetchSecretToken(for id: Int, completion: @escaping (Result<Raffle,AppError>) -> ()) {
+        
+    static func fetchWinnerId(for id: Int, completion: @escaping (Result<Int,AppError>) -> ()) {
         let endpointURLString = "https://raffle-fs-app.herokuapp.com/api/raffles/\(id)"
         guard let url = URL(string: endpointURLString) else {
             return
@@ -146,7 +150,7 @@ struct APIClient {
             case .success(let data):
                 do {
                     let raffle = try JSONDecoder().decode(Raffle.self, from: data)
-                    completion(.success(raffle))
+                    completion(.success(raffle.winnerID ?? 000))
                 } catch {
                     completion(.failure(.decodingError(error)))
                 }

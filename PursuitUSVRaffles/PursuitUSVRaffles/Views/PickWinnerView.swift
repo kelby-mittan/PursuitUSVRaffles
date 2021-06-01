@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol WinnerDelegate {
+    func pickWinner()
+}
+
 class PickWinnerView: UIView {
+    
+    var delegate: WinnerDelegate?
     
     private lazy var tokenLabel: UILabel = {
         let label = UILabel()
@@ -29,8 +35,17 @@ class PickWinnerView: UIView {
         button.setTitle("Pick Winner", for: .normal)
         button.layer.cornerRadius = 18
         button.backgroundColor = ColorPallete.lightGreen.colour
-        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handlePickingWinner), for: .touchUpInside)
         return button
+    }()
+    
+    public lazy var successView: SuccessView = {
+        let view = SuccessView()
+        view.alpha = 0
+        view.backgroundColor = .white
+        view.successIV.image = UIImage(systemName: "sparkles")
+        view.titleLabel.text = ""
+        return view
     }()
     
     override init(frame: CGRect) {
@@ -47,6 +62,7 @@ class PickWinnerView: UIView {
         setupTokenLabel()
         setupTokenTextField()
         setupRegisterButton()
+        setupSuccessView()
     }
     
     private func setupTokenLabel() {
@@ -81,8 +97,20 @@ class PickWinnerView: UIView {
         ])
     }
     
-    @objc func handleRegister() {
-//        delegate?.handleCreate()
+    private func setupSuccessView() {
+        addSubview(successView)
+        successView.translatesAutoresizingMaskIntoConstraints = false
+        successView.backgroundColor = .red
+        NSLayoutConstraint.activate([
+            successView.topAnchor.constraint(equalTo: self.topAnchor),
+            successView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            successView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            successView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ])
+    }
+    
+    @objc func handlePickingWinner() {
+        delegate?.pickWinner()
     }
     
 }

@@ -104,7 +104,7 @@ class ParticipantCell: UICollectionViewCell {
         phoneAttatchment.image = UIImage(systemName: "phone")
         let phoneStr = NSMutableAttributedString(string: "")
         phoneStr.append(NSAttributedString(attachment: phoneAttatchment))
-        phoneStr.append(NSAttributedString(string: " phone: \(participant.phone ?? "")"))
+        phoneStr.append(NSAttributedString(string: " email: \(participant.phone ?? "")"))
         phoneLabel.attributedText = phoneStr
     }
     

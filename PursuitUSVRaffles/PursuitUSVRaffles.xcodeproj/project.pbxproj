@@ -34,6 +34,7 @@
 		02A966B42665649C003899E0 /* CVLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966B32665649C003899E0 /* CVLayout.swift */; };
 		02A966B62665688A003899E0 /* WinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966B52665688A003899E0 /* WinnerView.swift */; };
 		02A966B826656B33003899E0 /* PickWinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966B726656B33003899E0 /* PickWinnerView.swift */; };
+		02A966BA2665A5E4003899E0 /* Alert+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A966B92665A5E4003899E0 /* Alert+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		02A966B32665649C003899E0 /* CVLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CVLayout.swift; sourceTree = "<group>"; };
 		02A966B52665688A003899E0 /* WinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinnerView.swift; sourceTree = "<group>"; };
 		02A966B726656B33003899E0 /* PickWinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickWinnerView.swift; sourceTree = "<group>"; };
+		02A966B92665A5E4003899E0 /* Alert+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alert+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,10 +203,8 @@
 		02A9668E2662B273003899E0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				02A9669A26630FAE003899E0 /* HomeView.swift */,
+				02A966BB2665BDB5003899E0 /* HomeViews */,
 				02A966AD266521AD003899E0 /* RaffleDetailView.swift */,
-				02A966A326644FC5003899E0 /* RafflePopUpView.swift */,
-				02A966A926646E82003899E0 /* SuccessView.swift */,
 				02A966B126655E98003899E0 /* RegisterView.swift */,
 				02A966B52665688A003899E0 /* WinnerView.swift */,
 				02A966B726656B33003899E0 /* PickWinnerView.swift */,
@@ -229,8 +229,19 @@
 				02A966A52664512A003899E0 /* CustomTextField.swift */,
 				02A966AF266552C3003899E0 /* SegmentedControl+Extension.swift */,
 				02A966B32665649C003899E0 /* CVLayout.swift */,
+				02A966B92665A5E4003899E0 /* Alert+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		02A966BB2665BDB5003899E0 /* HomeViews */ = {
+			isa = PBXGroup;
+			children = (
+				02A9669A26630FAE003899E0 /* HomeView.swift */,
+				02A966A326644FC5003899E0 /* RafflePopUpView.swift */,
+				02A966A926646E82003899E0 /* SuccessView.swift */,
+			);
+			path = HomeViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -378,6 +389,7 @@
 				02A966992662D440003899E0 /* Participant.swift in Sources */,
 				02A966952662C5BE003899E0 /* AppError.swift in Sources */,
 				02A9665A2662B14D003899E0 /* SceneDelegate.swift in Sources */,
+				02A966BA2665A5E4003899E0 /* Alert+Extension.swift in Sources */,
 				02A9668C2662B22F003899E0 /* APIClient.swift in Sources */,
 				02A966A426644FC6003899E0 /* RafflePopUpView.swift in Sources */,
 				02A966A226631DFD003899E0 /* Date+String+Extension.swift in Sources */,

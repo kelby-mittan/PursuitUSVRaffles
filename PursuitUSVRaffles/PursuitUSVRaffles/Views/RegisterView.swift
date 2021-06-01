@@ -138,7 +138,7 @@ class RegisterView: UIView {
     private func setupSuccessView() {
         addSubview(successView)
         successView.translatesAutoresizingMaskIntoConstraints = false
-        
+        successView.backgroundColor = .red
         NSLayoutConstraint.activate([
             successView.topAnchor.constraint(equalTo: self.topAnchor),
             successView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
