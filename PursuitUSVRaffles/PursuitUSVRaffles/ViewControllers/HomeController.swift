@@ -62,7 +62,6 @@ class HomeController: UIViewController {
                 case .failure(let error):
                     print(error.localizedDescription)
                 case .success(let raffles):
-                    dump(raffles)
                     self?.applySnapshot(raffles: raffles)
                 }
             }
@@ -136,7 +135,6 @@ extension HomeController {
 extension HomeController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let raffle = dataSource.itemIdentifier(for: indexPath) else { return }
-        print(raffle.name ?? "")
         let vc = RaffleDetailController(raffle)
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)

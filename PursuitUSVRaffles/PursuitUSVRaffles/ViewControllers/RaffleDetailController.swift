@@ -269,7 +269,7 @@ extension RaffleDetailController: RegisterDelegate, WinnerDelegate {
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    self?.showAlert(alertText: "Error", alertMessage: "\(error.localizedDescription)")
                 case .success(let id):
                     self?.winnerID = id
                     let participant = self?.participants.filter{$0.id == self?.winnerID}.first

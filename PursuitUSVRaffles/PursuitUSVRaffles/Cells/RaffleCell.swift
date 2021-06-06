@@ -66,27 +66,25 @@ class RaffleCell: UICollectionViewCell {
     public func configureCell(_ raffle: Raffle) {
         titleLabel.text = raffle.name
         
-        let calendarAttatchment = NSTextAttachment()
-        calendarAttatchment.image = UIImage(systemName: "calendar")
-        
+        let calendarImage = UIImage(systemName: "calendar")!
+        let whiteCalendar = calendarImage.withTintColor(ColorPallete.offWhite.colour, renderingMode: .alwaysTemplate)
+        let calendarAttatchment = NSTextAttachment(image: whiteCalendar)
         let createdAtStr = NSMutableAttributedString(string: "")
         createdAtStr.append(NSAttributedString(attachment: calendarAttatchment))
-        
         createdAtStr.append(NSAttributedString(string: "  Created on \(raffle.createdAt?.dateToString().date ?? "") at \(raffle.createdAt?.dateToString().time ?? "")"))
-        
         createdAtLabel.attributedText = createdAtStr
         
-        let trophyAttatchment = NSTextAttachment()
-        trophyAttatchment.image = UIImage(systemName: "crown.fill")
-        
+        let trophyImage = UIImage(systemName: "crown.fill")!
+        let whiteTrophy = trophyImage.withTintColor(ColorPallete.offWhite.colour, renderingMode: .alwaysTemplate)
+        let trophyAttatchment = NSTextAttachment(image: whiteTrophy)
         let winnerStr = NSMutableAttributedString(string: "")
         winnerStr.append(NSAttributedString(attachment: trophyAttatchment))
         winnerStr.append(NSAttributedString(string: " Winner ID: \(raffle.winnerID?.description ?? "No winner yet")"))
         winnerLabel.attributedText = winnerStr
         
-        let checkAttatchment = NSTextAttachment()
-        checkAttatchment.image = UIImage(systemName: "calendar.badge.exclamationmark")
-        
+        let checkImage = UIImage(systemName: "calendar.badge.exclamationmark")!
+        let whiteCheck = checkImage.withTintColor(ColorPallete.offWhite.colour, renderingMode: .alwaysTemplate)
+        let checkAttatchment = NSTextAttachment(image: whiteCheck)        
         let raffledAtStr = NSMutableAttributedString(string: "")
         raffledAtStr.append(NSAttributedString(attachment: checkAttatchment))
         

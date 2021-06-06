@@ -87,25 +87,28 @@ class ParticipantCell: UICollectionViewCell {
         
         nameLabel.text = "\(participant.firstname ?? "") \(participant.lastname ?? "")"
         
-        let hashTagAttatchment = NSTextAttachment()
-        hashTagAttatchment.image = UIImage(systemName: "number.square.fill")
+        let hashImage = UIImage(systemName: "number.square.fill")!
+        let blueHashImage = hashImage.withTintColor(ColorPallete.lightBlue.colour)
+        let hashTagAttatchment = NSTextAttachment(image: blueHashImage)
         let idStr = NSMutableAttributedString(string: "")
         idStr.append(NSAttributedString(attachment: hashTagAttatchment))
         idStr.append(NSAttributedString(string: " id: \(participant.id?.description ?? "")"))
         idLabel.attributedText = idStr
         
-        let emailAttatchment = NSTextAttachment()
-        emailAttatchment.image = UIImage(systemName: "envelope")
+        let emailImage = UIImage(systemName: "envelope")!
+        let blueEmail = emailImage.withTintColor(ColorPallete.lightBlue.colour)
+        let emailAttatchment = NSTextAttachment(image: blueEmail)
         let emailStr = NSMutableAttributedString(string: "")
         emailStr.append(NSAttributedString(attachment: emailAttatchment))
         emailStr.append(NSAttributedString(string: " email: \(participant.email ?? "")"))
         emailLabel.attributedText = emailStr
         
-        let phoneAttatchment = NSTextAttachment()
-        phoneAttatchment.image = UIImage(systemName: "phone")
+        let phoneImage = UIImage(systemName: "phone")!
+        let bluePhone = phoneImage.withTintColor(ColorPallete.lightBlue.colour)
+        let phoneAttatchment = NSTextAttachment(image: bluePhone)
         let phoneStr = NSMutableAttributedString(string: "")
         phoneStr.append(NSAttributedString(attachment: phoneAttatchment))
-        phoneStr.append(NSAttributedString(string: " email: \(participant.phone ?? "")"))
+        phoneStr.append(NSAttributedString(string: " phone: \(participant.phone ?? "")"))
         phoneLabel.attributedText = phoneStr
     }
     
