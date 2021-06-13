@@ -28,6 +28,15 @@ extension String {
         return (dayAndDate, time)
     }
     
+    public func dateToSeconds() -> Date {
+        let isoFormatter = ISO8601DateFormatter()
+        isoFormatter.formatOptions = [.withInternetDateTime,
+                                      .withFractionalSeconds
+        ]
+        let date = isoFormatter.date(from: self)
+        return date ?? Date()
+    }
+    
     public func dateToString2() -> (date: String, time: String) {
         var dayAndDate = "No Date"
         var time = "No Time"

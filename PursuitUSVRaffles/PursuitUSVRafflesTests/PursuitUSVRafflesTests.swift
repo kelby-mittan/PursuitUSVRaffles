@@ -10,22 +10,22 @@ import XCTest
 
 class PursuitUSVRafflesTests: XCTestCase {
     
-//    func testFetchingRaffles() {
-//        let expected = 31
-//        let exp = XCTestExpectation(description: "Test")
-//        APIClient.fetchRaffles { (result) in
-//            switch result {
-//            case .failure(let error):
-//                XCTFail("Failed Test \(error)")
-//            case .success(let raffles):
-//                let rafflesID = raffles[0].id
-//                dump(raffles)
-//                XCTAssertEqual(rafflesID, expected)
-//            }
-//            exp.fulfill()
-//        }
-//        wait(for: [exp], timeout: 3.0)
-//    }
+    func testFetchingRaffles() {
+        let expected = 31
+        let exp = XCTestExpectation(description: "Test")
+        APIClient.fetchRaffles { (result) in
+            switch result {
+            case .failure(let error):
+                XCTFail("Failed Test \(error)")
+            case .success(let raffles):
+                let rafflesID = raffles[0].id
+                dump(raffles)
+                XCTAssertEqual(rafflesID, expected)
+            }
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 5.0)
+    }
     
 //    func testFetchingRaffleParticipants() {
 //        let expected = "rose"
