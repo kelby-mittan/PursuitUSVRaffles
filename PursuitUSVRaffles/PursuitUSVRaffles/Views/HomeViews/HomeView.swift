@@ -7,7 +7,14 @@
 
 import UIKit
 
+protocol SortDelegate {
+    func sortByDate()
+    func sortByName()
+}
+
 class HomeView: UIView {
+    
+    var delegate: SortDelegate?
     
     public lazy var createRaffleButton: UIButton = {
         let button = UIButton()
@@ -29,6 +36,27 @@ class HomeView: UIView {
         return label
     }()
     
+    public var byDateButton: UIButton = {
+        let button = UIButton()
+        button.frame = CGRect(x: 0, y: 0, width: 100, height: 44)
+        button.setTitle("Date", for: .normal)
+        button.backgroundColor = ColorPallete.lightBlue.colour
+        button.addTarget(self, action: #selector(sortByDateAction), for: .touchUpInside)
+        button.layer.cornerRadius = 8
+        return button
+    }()
+    
+    public var sortByName: UIButton = {
+        let button = UIButton()
+        button.isEnabled = true
+        button.frame = CGRect(x: 0, y: 0, width: 100, height: 44)
+        button.setTitle("Name", for: .normal)
+        button.backgroundColor = ColorPallete.lightBlue.colour
+        button.addTarget(self, action: #selector(sortByNameAction), for: .touchUpInside)
+        button.layer.cornerRadius = 8
+        return button
+    }()
+    
     public lazy var cvContainerView: UIView = {
         let view = UIView()
         return view
@@ -46,9 +74,11 @@ class HomeView: UIView {
     
     private func commonInit() {
         backgroundColor = ColorPallete.offWhite.colour
-        setupCollectionView()
+        
         setupRaffleButton()
         setupHeaderLabel()
+        setupSortButtons()
+        setupCollectionView()
     }
     
     private func setupRaffleButton() {
@@ -73,15 +103,46 @@ class HomeView: UIView {
         ])
     }
     
+    private func setupSortButtons() {
+        addSubview(byDateButton)
+        addSubview(sortByName)
+        byDateButton.translatesAutoresizingMaskIntoConstraints = false
+        sortByName.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            byDateButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            byDateButton.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 10),
+            byDateButton.widthAnchor.constraint(equalToConstant: 100),
+            byDateButton.heightAnchor.constraint(equalToConstant: 44),
+            sortByName.centerYAnchor.constraint(equalTo: byDateButton.centerYAnchor),
+            sortByName.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            sortByName.widthAnchor.constraint(equalToConstant: 100),
+            sortByName.heightAnchor.constraint(equalToConstant: 44)
+        ])
+    }
+    
     private func setupCollectionView() {
         addSubview(cvContainerView)
         cvContainerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            cvContainerView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: UIScreen.main.bounds.height*1/12),
+            cvContainerView.topAnchor.constraint(equalTo: byDateButton.bottomAnchor, constant: 12),
             cvContainerView.bottomAnchor.constraint(equalTo: bottomAnchor),
             cvContainerView.trailingAnchor.constraint(equalTo: trailingAnchor),
             cvContainerView.leadingAnchor.constraint(equalTo: leadingAnchor)
         ])
     }
     
+    @objc func sortByDateAction() {
+        delegate?.sortByDate()
+    }
+    
+    @objc func sortByNameAction() {
+        delegate?.sortByName()
+    }
+    
+}
+
+enum SortedBy {
+    case byDate
+    case byName
 }

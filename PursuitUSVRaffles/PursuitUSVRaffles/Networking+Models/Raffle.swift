@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Raffle: Decodable, Hashable {
     let id: Int?
@@ -14,6 +15,15 @@ struct Raffle: Decodable, Hashable {
     let raffledAt: String?
     let winnerID: Int?
     let secretToken: String?
+    
+    var createdDate: Date {
+        let isoFormatter = ISO8601DateFormatter()
+        isoFormatter.formatOptions = [.withInternetDateTime,
+                                      .withFractionalSeconds
+        ]
+        let date = isoFormatter.date(from: createdAt ?? "")
+        return date ?? Date()
+    }
     
     enum CodingKeys: String, CodingKey {
         case id

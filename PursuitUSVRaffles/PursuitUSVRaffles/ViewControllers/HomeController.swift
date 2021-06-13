@@ -19,6 +19,8 @@ class HomeController: UIViewController {
     private var snapshot = DataSourceSnapshot()
     private var raffleCreatedName = ""
     private var raffleToken = ""
+    private var raffles = [Raffle]()
+    private var sortedBy: SortedBy = .byDate
     
     private lazy var popUpView: RafflePopUpView = {
         let view = RafflePopUpView()
@@ -41,12 +43,15 @@ class HomeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        homeView.delegate = self
         homeView.createRaffleButton.addTarget(self, action: #selector(raffleButtonPressed), for: .touchUpInside)
         popUpView.nameTextField.delegate = self
         popUpView.tokenTextField.delegate = self
+        homeView.byDateButton.isEnabled = false
         configureCollectionViewLayout()
         configureCollectionViewDataSource()
         loadRaffles()
+        sortByDate()
         setupVisualEffect()
         
     }
@@ -61,8 +66,14 @@ class HomeController: UIViewController {
                 switch result {
                 case .failure(let error):
                     print(error.localizedDescription)
-                case .success(let raffles):
+                case .success(var raffles):
+                    if self?.sortedBy == .byDate {
+                        raffles = raffles.sorted {$0.createdDate > $1.createdDate}
+                    } else {
+                        raffles = raffles.sorted {$0.name ?? "" > $1.name ?? ""}
+                    }
                     self?.applySnapshot(raffles: raffles)
+                    self?.raffles = raffles
                 }
             }
         }
@@ -211,4 +222,24 @@ extension HomeController: UITextFieldDelegate {
             raffleToken = textField.text ?? ""
         }
     }
+}
+ 
+extension HomeController: SortDelegate {
+    func sortByDate() {
+        sortedBy = .byDate
+        homeView.sortByName.isEnabled = true
+        homeView.byDateButton.isEnabled = false
+        let sorted = raffles.sorted {$0.createdDate > $1.createdDate }
+        applySnapshot(raffles: sorted)
+    }
+    
+    func sortByName() {
+        sortedBy = .byName
+        homeView.sortByName.isEnabled = false
+        homeView.byDateButton.isEnabled = true
+        let sorted = raffles.sorted {$0.name ?? "" < $1.name ?? ""}
+        applySnapshot(raffles: sorted)
+    }
+    
+    
 }
